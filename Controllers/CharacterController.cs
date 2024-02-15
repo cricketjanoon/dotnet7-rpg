@@ -2,18 +2,15 @@ using Microsoft.AspNetCore.Mvc;
 using dotnet_rpg.Models;
 using dotnet_rpg.Services.CharacterService;
 using dotnet_rpg.DTOs.Character;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace dotnet_rpg.Controllers {
 
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CharacterController : ControllerBase {
-
-        private static List<Character> characters = new List<Character>(){
-            new Character{Id=1, Name="Sam"},
-            new Character{Id=2, Name="Shabs"},
-            new Character()
-        };
 
         private readonly ICharacterService _characterService;
 
@@ -31,9 +28,10 @@ namespace dotnet_rpg.Controllers {
 
         [HttpGet]
         [Route("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get(){
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> GetAllCharacter(){
 
-            return Ok(await _characterService.GetAllCharacters());
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type== ClaimTypes.NameIdentifier)!.Value);
+            return Ok(await _characterService.GetAllCharacters(userId));
         }
 
         [HttpPost]
