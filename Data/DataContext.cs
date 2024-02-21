@@ -8,7 +8,18 @@ namespace dotnet_rpg.Data
             
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<Skill>().HasData(
+                new Skill(1, "Fireball", 3),
+                new Skill(2, "Frenzy",  40),
+                new Skill(3, "Blizzard",  50)
+            );
+        }
+
         public DbSet<Character> Characters => Set<Character>();
         public DbSet<User> Users => Set<User>();
+        public DbSet<Weapon> Weapons => Set<Weapon>();
+        public DbSet<Skill> Skills => Set<Skill>();
+        
     }
 }

@@ -31,7 +31,7 @@ namespace dotnet_rpg.Controllers {
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> GetAllCharacter(){
 
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type== ClaimTypes.NameIdentifier)!.Value);
-            return Ok(await _characterService.GetAllCharacters(userId));
+            return Ok(await _characterService.GetAllCharacters());
         }
 
         [HttpPost]
@@ -58,6 +58,14 @@ namespace dotnet_rpg.Controllers {
 
             var response = await _characterService.DeleteCharacter(id);
             if(response.Data==null)
+                return NotFound(response);
+            return Ok(response);
+        }
+
+        [HttpPost("AddSkill")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> AddSkill(AddCharacterSkillDto characterSkill){
+            var response = await _characterService.AddCharacterSkill(characterSkill);
+            if(response.Success==false)
                 return NotFound(response);
             return Ok(response);
         }
