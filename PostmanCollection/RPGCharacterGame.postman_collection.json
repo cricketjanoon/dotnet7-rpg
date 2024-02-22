@@ -1,13 +1,13 @@
 {
 	"info": {
-		"_postman_id": "18c28210-640b-4506-b792-410988ecc34c",
+		"_postman_id": "e3d7f527-0904-4122-af35-902782f8fbff",
 		"name": "RPG Character Game",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "32549019"
 	},
 	"item": [
 		{
-			"name": "1. GetOneCharacterId",
+			"name": "1. GetOneCharacterId1",
 			"event": [
 				{
 					"listen": "test",
@@ -19,13 +19,29 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// pm.variables.set(\"Authorization\", \"bearer \" + pm.globals.get(\"jwttoken\"));\r",
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwttoken}}",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:5145/api/Character/GetOne/2",
+					"raw": "http://localhost:5145/api/Character/GetOne/11",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -35,7 +51,7 @@
 						"api",
 						"Character",
 						"GetOne",
-						"2"
+						"11"
 					]
 				},
 				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -59,7 +75,13 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwttoken}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:5145/api/Character/GetAll",
 					"protocol": "http",
@@ -81,10 +103,16 @@
 			"name": "3. AddCharacter",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwttoken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n//   \"id\": 5, auto increment is enabled\r\n  \"name\": \"Chalupa3\",\r\n  \"hitPoints\": 2,\r\n  \"strength\": 9,\r\n  \"defense\": 5,\r\n  \"intelligence\": 2,\r\n  \"class\": \"Cleric\"\r\n}",
+					"raw": "{\r\n//   \"id\": 5, auto increment is enabled\r\n  \"name\": \"jcena1\",\r\n  \"hitPoints\": 2,\r\n  \"strength\": 9,\r\n  \"defense\": 5,\r\n  \"intelligence\": 2,\r\n  \"class\": \"Knight\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -125,10 +153,16 @@
 			],
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwttoken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": 2,\n  \"name\": \"chalo2\",\n  \"hitPoints\": 1,\n  \"strength\": 2,\n  \"defense\": 3,\n  \"intelligence\": 4,\n  \"class\": \"Cleric\"\n}",
+					"raw": "{\n  \"id\": 12,\n  \"name\": \"test run\",\n  \"hitPoints\": 1,\n  \"strength\": 2,\n  \"defense\": 3,\n  \"intelligence\": 4,\n  \"class\": \"Knight\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -170,7 +204,13 @@
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwttoken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "",
@@ -181,7 +221,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5145/api/Character/Delete/0",
+					"raw": "http://localhost:5145/api/Character/Delete/14",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -191,10 +231,283 @@
 						"api",
 						"Character",
 						"Delete",
-						"0"
+						"14"
 					]
 				},
 				"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "6. RegisterUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"john\",\r\n  \"password\": \"882154\"\r\n}\r\n\r\n// 1, shahbaz, 882154\r\n// 2, john, 882154\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5145/Auth/Register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5145",
+					"path": [
+						"Auth",
+						"Register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var obj = pm.response.json()[\"data\"];\r",
+							"pm.globals.set(\"jwttoken\", obj);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"john\",\r\n  \"password\": \"882154\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5145/Auth/Login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5145",
+					"path": [
+						"Auth",
+						"Login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. AddWeapon",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwttoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"The gun\",\r\n    \"damage\": 5,\r\n    \"characterId\": 13\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5145/Weapon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5145",
+					"path": [
+						"Weapon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9. AddSkill",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwttoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"characterId\": 11,\r\n    \"skillId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5145/api/Character/AddSkill",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5145",
+					"path": [
+						"api",
+						"Character",
+						"AddSkill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10. Attack With Weapon",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"attackerId\": 13,\r\n  \"opponentId\": 11\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5145/Fight/AttachWithWeapon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5145",
+					"path": [
+						"Fight",
+						"AttachWithWeapon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11. Attack With Skill",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwttoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"attackerId\": 11,\r\n  \"opponentId\": 13,\r\n  \"skillId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5145/Fight/AttackWithSkill",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5145",
+					"path": [
+						"Fight",
+						"AttackWithSkill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12. StartFight",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwttoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"charasterIds\": [\r\n    9, 11, 13\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5145/Fight/StartFight",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5145",
+					"path": [
+						"Fight",
+						"StartFight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "13. Get High Scores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5145/Fight/GetHighScore",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5145",
+					"path": [
+						"Fight",
+						"GetHighScore"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 			},
 			"response": []
 		}
